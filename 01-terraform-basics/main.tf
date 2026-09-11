@@ -8,5 +8,10 @@ terraform {
 }
 
 provider "aws" {
-  region = "us-east-1"
+  region = "ap-southeast-1"
+}
+
+
+resource "aws_s3_bucket" "mybucket" {
+  bucket = "ebad-terraform-demo-20242212121212"
 }
