@@ -38,3 +38,18 @@ variable "bucket_name" {
   type = string
   default = "ebad-terraform-demo-20242212121212"
 }
+
+
+output "bucketname" {
+  description = "S3 bucket name"
+  value = aws_s3_bucket.mybucket.id
+}
+
+output "bucket_arn" {
+  value = aws_s3_bucket.mybucket.arn
+  description = "this is the arn of our s3"
+}
+
+output "bucket_domain_name"{
+  value = aws_s3_bucket.mybucket.bucket_regional_domain_name
+}
