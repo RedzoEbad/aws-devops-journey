@@ -14,10 +14,9 @@ provider "aws" {
 
 resource "aws_s3_bucket" "mybucket" {
   bucket = var.bucket_name
-  tags = {
-    Name        = "My bucket"
-    Environment = var.environment
-  }
+  tags = merge(local.common_tags , {
+    Name = "${local.prefix}-s3"
+  })
 }
 
 resource "aws_s3_bucket_versioning" "bucket_versioning" {
@@ -27,7 +26,7 @@ resource "aws_s3_bucket_versioning" "bucket_versioning" {
   }
 }
 
-variable "environment" {
+variable "Environment" {
   description = "Enviroment name"
   type        = string
   default     = "dev"
@@ -52,4 +51,13 @@ output "bucket_arn" {
 
 output "bucket_domain_name"{
   value = aws_s3_bucket.mybucket.bucket_regional_domain_name
+}
+
+locals {
+  prefix = "${var.Environment}-ebad"
+  common_tags = {
+    Environment = var.Environment   
+    ManagedBy   = "terraform"
+    Project     = "terraform-learning"
+  }
 }
