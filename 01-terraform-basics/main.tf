@@ -9,8 +9,30 @@ terraform {
 
 provider "aws" {
   region = "ap-southeast-1"
+  
 }
 
+data "aws_caller_identity" "current" {}
+
+output "account_id" {
+  description = "AWS Account ID"
+  value       = data.aws_caller_identity.current.account_id
+}
+
+data "aws_ami" "amazon_linux" {
+  most_recent = true
+  owners      = ["amazon"]
+
+  filter {
+    name   = "name"
+    values = ["amzn2-ami-hvm-*"]
+  }
+}
+
+
+output "region"{
+  value = data.aws_ami.amazon_linux.id
+}
 
 resource "aws_s3_bucket" "mybucket" {
   bucket = var.bucket_name
