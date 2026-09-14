@@ -13,10 +13,10 @@ provider "aws" {
 
 
 resource "aws_s3_bucket" "mybucket" {
-  bucket = "ebad-terraform-demo-20242212121212"
+  bucket = var.bucket_name
   tags = {
     Name        = "My bucket"
-    Environment = "Dev"
+    Environment = var.environment
   }
 }
 
@@ -25,4 +25,16 @@ resource "aws_s3_bucket_versioning" "bucket_versioning" {
   versioning_configuration {
     status = "Enabled"
   }
+}
+
+variable "environment" {
+  description = "Enviroment name"
+  type        = string
+  default     = "dev"
+}
+
+variable "bucket_name" {
+  description = "s3 bucket name"
+  type = string
+  default = "ebad-terraform-demo-20242212121212"
 }
