@@ -17,3 +17,9 @@ module "dev_bucket" {
   bucket_name = "my-bucket-123r3rd32434334"
   environment = "dev"
 }
+
+module "prod_bucket" {
+    source = "./modules/s3"
+    bucket_name = "my-bucekt-prodjsdjfkddsfkds"
+    environment = "prod"
+}
